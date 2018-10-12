@@ -14,7 +14,7 @@ void PrintArray(int array[], int size) {
 void Swap(int *a, int *b) {
 	int t = *a;
 	*a = *b;
-	*a = t;
+	*b = t;
 }
 //最坏 o(n^2) 最好 o(1）
 //插入排序
