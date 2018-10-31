@@ -1,227 +1,273 @@
-// public class Test{
-//     public static void main(String[] args){
-
-//         //System.out.println("hello world");
-//         //System.out.print(10/4);
-
-//         /*
-//         int line = 10;
-//         for (int x = 0; x < line; x++) { //控制行数
-//         for (int y = 0; y < line -x ; y++) {//控制空格
-//         System.out.print(" ");
-//         }
-//         for (int z = 0; z < x ; z++ ) {
-//         System.out.print("* ");
-//         }
-//         System.out.println();
-//         }
-//             }
-//         */
-//         //读取字符
-//     //    char c = System.in.read();
-//         //读取字符串
-//     //    Scanner scanner = new Scanner(System.in);
-//     //    String str = scanner.nexline();
-//     //
-//     //int[] x = new int[3];
-//     //x[0] = 10;
-//     //x[1] = 20;
-//     //x[2] = 30;
-//     //int [] temp = x;
-//     //temp[2]=20;
-
-
-
-
-//    // int[] data = new int[]{1,2,3,4,5,6};
-//     //System.out.print(data.length);
-
-
-
-//     //System.out.print(new int[]{1,2,3,4,5,6}[0]);
-
-//     int[][] data = new int[][]{{1,2},{3,4,5},{6,7,8,9,10}};
-
-//     for(int x=0;x<data.length;x++){
-//         for(int y=0;y<data[x].length;x++){
-//             System.out.print(data[x][y]+"");
-//         }
-//     }
-//     }
-
-
-// }
-// class Outter{
-//     private String msg="";
-//     public void test(){
-//         Inner in = new Inner(this);    
-//         }   
-// }
-// class Inner{
-//         private String inmsg="";
-//         public void fun(){
-//             System.out.print();
-//         }
-//     }
-
-// class C{
-//     class InnreClassA extends A{
-//         public String name(){
-//             return super.getMg;
-//         }
-//     }
-//     class InnreClassB extends B{
-//         public int age(){
-//             return super.geyAge();
-//         }
-//     }
-//     public String name(){
-//         return new InnreClassA().name();
-//     }
-//     public int age(){
-//         return new InnreClassB().age();
-//     }
-// }
-
-// public class Test{
-//     public static void mian(String[] args){
-//         Outter out = new Outter();
-//         out.test();
-//     }
-// }
-
-
-
-// class Father{
-//     private String name = "zhangjun";
-
-//     class Child{
-//         public void introFather(){
-//             System.out.println(name);
-//         }
-//     }
-// }
-
-// class Test{
-//     public static void main(String[] args){
-//         Father.Child child = new Father().new Child();
-//         child.introFather();
-//     }
-// }
-
-
-//非静态内部类不能拥有static变量
-
-// class Test{
-//     public static void main(String[] args){
-//         shuiXianHua();
-//     }
-//     public static void shuiXianHua(){
-//             for(int i=100; i<1000; i++){
-//                 int a = i % 10;
-//                 int b = i / 10 % 10;
-//                 int c = i / 100;
-//                 int d = a*a*a + b*b*b + c*c*c;
-//                 if(d == i){
-//                     System.out.print(i+ " ");
-//                 }
-//             }
-//         }
-// }
-
-
-
-/**
-5.编程题： 
-定义一个抽象的"Role"类，有姓名，年龄，性别等成员变量 
-1）要求尽可能隐藏所有变量(能够私有就私有,能够保护就不要公有)， 
-再通过GetXXX()和SetXXX()方法对各变量进行读写。具有一个抽象的play()方法， 
-该方法不返回任何值，同时至少定义两个构造方法。Role类中要体现出this的几种用法。 
-2）从Role类派生出一个"Employee"类，该类具有Role类的所有成员（构造方法除外）， 
-并扩展salary成员变量，同时增加一个静态成员变量“职工编号（ID）”。 
-同样要有至少两个构造方法，要体现出this和super的几种用法，还要求覆盖play()方法， 
-并提供一个final sing()方法。 
-3）"Manager"类继承"Employee"类，有一个final成员变量"vehicle" 
-在main()方法中制造Manager和Employee对象,并测试这些对象的方法。 
-
-提交作业 
-*/
-abstract class Role{
-    private String name;
-    private int age;
-    private String sex;
-    public Role(){
-
-    }
-    public Role(String name){
-        this.name = name;
-    }
-    public Role(String name, String sex){
-        this(name);
-        this.sex = sex;
-    }
-    public final void setName(String name){
-        this.name = name;
-    }
-    public final void setAge(int age){
-        this.age = age;
-    }
-    public final void setSex(String sex){
-        this.sex = sex;
-    }
-
-    public final String getName(){
-        return name;
-    }
-    public final int getAge(){
-        return age;
-    }
-    public final String getSex(){
-        return sex;
-    }
-
-    abstract void play();
-    
+interface Computer{
+    int computer(int m, int n);
 }
 
-class Employee extends Role{
-    static int ID;
-    private int salary;
-    public Employee(){
-        super();
-    }
-    public Employee(String name){
-        super(name);
-    }
-    public Employee(String name, String sex){
-        super(name, sex);
-    }
-    public final void setSalary(int salary){
-        this.salary = salary;
-    }
-    public final int getSalary(){
-        return salary;
-    }
-    final void sing(){
-
-    }
-    void play(){
-
+class AddComputerImpl implements Computer{
+    public int computer(int m, int n){
+        return m+n;
     }
 }
 
-class Manager extends Employee{
-    final String vehicle = "car";
+class SumComputerImpl implements Computer{
+    public int computer(int m, int n){
+        return m-n;
+    }
 }
+
+class MulComputerImpl implements Computer{
+    public int computer(int m, int n){
+        return m * n;
+    }
+}
+
+class DivComputerImpl implements Computer{
+    if(m == 0)
+        return 0;
+    public int computer(int m, int n){
+        return m / n;
+    }
+}
+
+class UseCompute{
+    public void useCom(Computer com, int one, int two){
+        System.out.println(com.computer(one, two));
+    }
+}
+
+
 public class Test{
     public static void main(String[] args){
-        Employee em = new Employee();
-        em.setAge(18);
-        em.setName("jinshuai");
-        em.setSex("");
-        System.out.println(em.getAge());
-        System.out.println(em.getName());
-        System.out.println(em.getSex());
-        Manager man = new Manager();
+        UseCompute use =  new UseCompute();
+        use.useCom(new AddComputerImpl(),2,3);
     }
 }
+
+
+
+// interface InterfaceA{
+//     System.out.println("interface");
+//     String S = "good";
+//     void f();
+// }
+
+// abstract class ClassA{
+//     System.out.println("CA");
+//     abstract void g();
+// }
+
+// class ClassB extends ClassA implements InterfaceA{
+//     void g(){
+//         System.out.print(S);
+//     }
+// System.out.println("classz");
+//     public void f(){
+//         System.out.print(""+S);
+//     }
+//     System.out.println("class2");
+// }
+
+// public class Test{
+//     public static void main(String[] args){
+//         ClassA a = new ClassB();
+//         InterfaceA b = new ClassB();
+//         a.g();
+//         b.f();
+//     } 
+
+
+
+
+    // public static void main(String[] args){
+    //     int[] nums = new int[]{11, 3, 2, 7,8};
+    //     Test test = new Test();
+    //     int target = 9;
+    //     System.out.println("["+test.twoSum(nums,9)[0]+","+test.twoSum(nums, 9)[1]+"]");
+    // }
+    // public int[] twoSum (int[] nums, int target){
+    //     int[] arr = new int[2];
+    //     for(int i = 0;i < nums.length; i++){
+    //         for(int j =i; j < nums.length; j++){
+    //             if(target == nums[i] + nums[j]){
+    //                 arr[0] = i;
+    //                 arr[1] = j;
+    //             }
+
+    //         }
+    //     }
+    //     return arr;
+    // }
+//}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// class A{
+//     {
+//         System.out.println("1.非主类的构造块");
+//     }
+//     static {
+//         System.out.println("2.非主类的静态块");
+//     }
+// }
+// public class Test{
+//     public static void main(String[] args) {
+//         new A();
+//         new A();
+//         new A();
+//     }
+//  }
+
+// //---------------------------------------------------------------------------
+// public class Test{
+//     static {
+//         System.out.println("1.主类的静态块");
+//     }
+//     public static void main(String[] args) {
+//         System.out.println("2.主方法");
+//     }
+//  }
+ //输出结果：
+ //1.主类的静态块
+ //2.主方法
+//-----------------------------------------------------------------------------
+
+
+
+
+
+
+//  public class Test{
+//     //构造块
+//     {
+//         System.out.println("构造块");
+//     }
+//     public static void main(String[] args) {
+        
+//     }
+//  }
+//-----------------------------------------------------------------------------
+
+// class Fu {
+// public Fu(String name) {
+// System.out.println("hello");
+// }
+// }
+// class Zi extends Fu {
+// public Zi(String name) {
+// //子类调用父类的有参构造时，必须用super(name)调用
+// //调用无参构造时，super()可写可不写
+// super(name); //必须是第一行
+// System.out.println("world");
+// }
+// }
+
+// public class Test{
+//     public static void main(String[] args) {
+//         Zi z2 = new Zi("java");
+//     }
+// }
+
+
+//-----------------------------------------------------------------------------
+// public class Test{
+//     int a;
+//     //调用类的属性和方法，必须通过对象使用，否则会报错：
+//     //无法从静态上下文中引用非静态
+//     public static void main(String[] args){
+//         System.out.println(new Test().a); //输出:0
+//     }
+// }
+
+
+//-----------------------------------------------------------------------------
+// public class Test{
+//     public static void main(String[] args){
+//         //Java虚拟机内存和栈
+//         int a;//错误: 可能尚未初始化变量a
+//         System.out.println(a);
+//     }
+// }
+//-----------------------------------------------------------------------------
+// public class Test{
+//     public static void main(String[] args){
+//         //java默认整形常量是int型
+//         byte b = 120; //编译正常
+//         //----------
+//         //错误: 不兼容的类型: 从int转换到byte可能会有损失
+//         int a = 120; 
+//         byte c = a;
+//     }
+// }
+//-----------------------------------------------------------------------------
+// public class Test{
+//     public static void main(String[] args){
+//         //保存当前int最大值
+//         int MaxValue = Integer.MAX_VALUE;
+//         //保存当前int的最小值
+//         int MinValue = Integer.MIN_VALUE;
+
+//         //数据溢出
+//         System.out.println(MaxValue + 1); //-2147483648（最小值）
+//         System.out.println(MinValue - 1); //2147483647（最大值）
+//     }
+//  }
+
+// public class Test{
+//     public static void main(String[] args){
+//         //保存当前int最大值
+//         //用较大的数据类型保存int的最大值加1，为何还是数据溢出？
+//         //程序从右向左执行，Integer.MAX_VALUE 和 1都是int型，相加之后还是int型
+//         //而MaxValue保存的是溢出的值，所以，输出还是和溢出的值相等
+//         long MaxValue = Integer.MAX_VALUE + 1;
+//         long MinValue = Integer.MIN_VALUE - 1;
+//         System.out.println(MaxValue); //-2147483648
+//         System.out.println(MinValue); //2147483647
+//     }
+//  }
+
+// public class Test{
+//     public static void main(String[] args){
+//         //保存当前int最大值
+//         //解决上述代码问题的方法
+//         //在赋值之前要将计算结果转换成long型
+   
+//         //在Java中小的数据类型和大的数据类型做数值运算时，
+//         long MaxValue = Integer.MAX_VALUE + 1L;
+//         //小的数据类型会自动提升为大的数据类型
+
+//         //直接对其进行强转，转换成long型
+//         long MinValue = (long)Integer.MIN_VALUE - 1;
+
+//         //正常的输出
+//         System.out.println(MaxValue); //2147483648
+//         System.out.println(MinValue); //-2147483648
+//     }
+//  }
+//-------------------------------------------------------------------------
+
+// //java中方法和变量必须放在类中
+// /**
+// 主类名必须与文件名相同 */
+// //public class Test(主类) 
+// //public 申明的类只能是主类，且只有一个
+// public class Test{
+//     public static void main(String[] args){
+//     }
+// }
+// //没有public修饰的类可以有多个
+// class A{}
