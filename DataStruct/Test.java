@@ -1,224 +1,266 @@
-import java.io.PrintWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.text.DecimalFormat;
-class Course{
-    private String courseName;
-    private String courseNo;
-    private char courseGrade;
-    private int courseCredits;
+package www.jin.java;
 
-    //copyCourseInfo
-    public void setCourseInfo(String cName, String cNo, char grade, int credits){
-        courseName = cName;
-        courseNo = cNo;
-        courseGrade = grade;
-        courseCredits = credits;
-    }
+//接口声明
+interface ILink{
+        /**
+         * 链表增加节点操作
+         * @param data 节点内容
+         * @return
+         */
+        boolean add(Object data);
 
-    public void setCourseName(String cName){
-        courseName = cName;
-    }
-    public void setCourseNumber(String cNo){
-        courseNo = cNo;
-    }
-    public void setCourGrade(char grade){
-        courseGrade = grade;
-    }
-    public void setCourseCredits(int credits){
-        courseCredits = credits;
-    }
+        /**
+         * 判断指定内容节点在链表中是否存在
+         * @param data 要判断的内容
+         * @return 返回找到的节点索引
+         */
+        int contains(Object data);
 
-    public void print(boolean isGrade){
-        System.out.print(courseNo+"\t "+courseName+"\t\t"+courseCredits+"\t");
-        if(isGrade){
-            System.out.println(courseGrade);
-        }else{
-            System.out.println("***");
-        }
-    }
+        /**
+         * 删除指定内容节点
+         * @param data
+         * @return
+         */
+        boolean remove(Object data);
 
-    public void print(PrintWriter outp, boolean isGrade){
-        outp.print(courseNo+"\t "+courseName+"\t\t"+courseCredits+"\t");
-        if(isGrade){
-            outp.println(courseGrade);
-        }else{
-            outp.println("***");
-        }
-    }
-    public int getCredits(){
-        return courseCredits;
-    }
+        /**
+         * 根据指定下标修改节点内容
+         * @param index 索引下标
+         * @param newData 替换后的内容
+         * @return 替换之前的节点内容
+         */
+        Object set(int index,Object newData);
 
-    public String getCourseNumber(){
-        return courseNo;
-    }
-    public char getGrade(){
-        return courseGrade;
-    }
-    public String getCourseInfo(boolean isGrade){
-        String str;
-        str = courseNo+"\t "+courseName+"\t\t"+courseCredits+"\t";
-        if(isGrade)
-            str = str+courseGrade;
-        else
-            str = str+"***";
-        return str;
-    }
-    public Course(String cName, String cNo, char grade, int credits){
-        courseName = cName;
-        courseNo = cNo;
-        courseGrade = grade;
-        courseCredits = credits;
-    }
-    public Course(){
-        courseName = "";
-        courseNo = "";
-        courseGrade = '*';
-        courseCredits = 0;
-    }
+        /**
+         * 根据指定下标返回节点内容
+         * @param index
+         * @return
+         */
+        Object get(int index);
+
+        /**
+         * 链表清空
+         */
+        void clear();
+
+        /**
+         * 将链表转为数组
+         * @return 返回所有节点内容
+         */
+        Object[] toArray();
+
+        /**
+         * 链表长度
+         * @return
+         */
+        int size();
+
+        /**
+         * 遍历链表
+         */
+        void printLink();
 }
 
-class Student{
-    private int sId;
-    private String sName;
-    private int numberOfCourses;
-    private boolean isTuitionPaid;
-    private Course[] courseEnrolled;
+class LinkListImpl implements ILink {
+    private Node head;
+    private Node last;
+    private int size;
 
-    public void setInfo(String sName, int ID, int nOfCourses, boolean isTpid, Course[] courses){
-        int i;
-        this.sName = sName;
+    private class Node {
+        private Node prev;
+        private Object data;
+        private Node next;
 
-        sId = ID;
-        isTuitionPaid = isTpid;
-        numberOfCourses = nOfCourses;
-        for(i=0; i<numberOfCourses; i++){
-            courseEnrolled[i].copyCourseInfo(courses[i]);
+        Node(Node prev, Object data, Node next) {
+            this.prev = prev;
+            this.data = data;
+            this.next = next;
         }
     }
-    public void setStudentId(int ID){
-        sId = ID;
-    }
-    public void setsTuitionPaid(boolean isTpid){
-        isTuitionPaid = isTpid;
-    }
-    public void setNumberOfCourses(int nOfCourses){
-        numberOfCourses = nOfCourses;
-    }
-    public void setCoursesEnrolled(Course[] courses){
-        int i;
-        for(i=0;i<numberOfCourses;i++){
-            courseEnrolled[i].copyCourseInfo(courses[i]);
-        }
-    }
-    public void print(double tuitionRate){
-        int i;
 
-        DecimalFormat twoDecimal = new DecimalFormat("0.00");
-        System.out.println("Student Name: "+super.toString());
-        System.out.println("Student ID: "+sId);
-        System.out.println("Number of courses enrolled: "+numberOfCourses);
-        System.out.println("Course No Course Name"+"\t  Credits"+"\t     Grade");
-        for(i=0; i<numberOfCourses; i++){
-            courseEnrolled[i].print(isTuitionPaid);
+    /**
+     * 添加结点内容
+     * @param data 节点内容
+     * @return
+     */
+    @Override
+    public boolean add(Object data) {
+        Node temp = this.last;
+        Node newNode = new Node(temp, data, null);
+        this.last = newNode;
+        if (this.head == null) {
+            this.head = newNode;
+        } else {
+            temp.next = newNode;
         }
-        System.out.println();
-        System.out.println("Total number of credit hours:"+twoDecimal.format(getHoursEnrolled()));
-        if(isTuitionPaid){
-            System.out.println("Midsemester GPA: "+twoDecimal.format(getGpa()));
-        }else{
-            System.out.println("*** Grades are being held for not paying the tuition. ***");
-            System.out.println("Amount Due:$"+twoDecimal.format(billingAmount(tuitionRate)));
-        }
-        System.out.print("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"+"-*-*-*-*-*-*-\n");
+        this.size++;
+        return true;
     }
-    public void print(PrintWriter outp, double tuitionRate){
-         int i;
 
-        DecimalFormat twoDecimal = new DecimalFormat("0.00");
-        outp.println("Student Name: "+super.toString());
-        outp.println("Student ID: "+sId);
-        outp.println("Number of courses enrolled: "+numberOfCourses);
-        outp.println("Course No Course Name"+"\t  Credits"+"\t     Grade");
-        for(i=0; i<numberOfCourses; i++){
-            courseEnrolled[i].print(isTuitionPaid);
-        }
-        outp.println();
-        outp.println("Total number of credit hours:"+twoDecimal.format(getHoursEnrolled()));
-        if(isTuitionPaid){
-            outp.println("Midsemester GPA: "+twoDecimal.format(getGpa()));
-        }else{
-            outp.println("*** Grades are being held for not paying the tuition. ***");
-            outp.println("Amount Due:$"+twoDecimal.format(billingAmount(tuitionRate)));
-        }
-        outp.println("-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"+"-*-*-*-*-*-*-\n");
-    }
-    public Student(){
-        super();
-        numberOfCourses = 0;
-        sId = 0;
-        isTuitionPaid = false;
-        courseEnrolled = new Course[6];
-        for(int i=0;i<6;i++){
-            courseEnrolled[i] = new Course();
-        }
-    }
-    public String getName(){
-        return sName;
-    }
-    public int getStudentId(){
-        return sId;
-    }
-    public boolean getIsTuitionPaid(){
-        return isTuitionPaid;
-    }
-    public int getNumberOfCourse(){
-        return numberOfCourses;
-    }
-    public Course getCOurses(int i){
-        Course temp = new Course();
-        temp.copyCourseInfo(courseEnrolled[i]);
-        return temp;
-    }
-    public int getHoursEnrolled(){
-        int totalCredits = 0;
-        int i;
-
-        for(i=0; i<numberOfCourses; i++){
-            totalCredits += courseEnrolled[i].getCredits();
-        }
-
-        return totalCredits;
-    }
-    public double billingAmount(double tuitionRate){
-        return tuitionRate*getHoursEnrolled();
-    }
-    public double getGpa(){
-        int i;
-        double sum = 0.0;
-        for(i=0;i<numberOfCourses;i++){
-            switch(courseEnrolled[i].getGrade()){
-                case 'A':sum+=courseEnrolled[i].getCredits()*4;
-                break;
-                case 'B':sum+=courseEnrolled[i].getCredits()*3;
-                break;
-                 case 'C':sum+=courseEnrolled[i].getCredits()*2;
-                break;
-                 case 'D':sum+=courseEnrolled[i].getCredits()*1;
-                break;
-                 case 'F':sum+=courseEnrolled[i].getCredits()*0;
-                break;
-                default:System.out.println("Invalid COurse Grade");
+    @Override
+    public int contains(Object data) {
+        if(data == null){
+            int i = 0;
+            for(Node temp = this.head;temp != null;temp = temp.next){
+                if(temp.data == null){
+                    return i;
+                }
+                i++;
             }
         }
-        return sum/getHoursEnrolled();
+        else{
+            int i = 0;
+            for(Node temp = this.head;temp != null;temp = temp.next){
+                /**
+                 * 字符串比较
+                 */
+                if(data.equals(temp.data)){
+                    return i;
+                }
+                i++;
+            }
+        }
+        return -1;
     }
 
-   
+    @Override
+    public boolean remove(Object data) {
+        if(data == null) {
+            for (Node temp = this.head; temp != null; temp = temp.next) {
+                if (temp.data == null) {
+                    unLink(temp);
+                    return true;
+                }
+            }
+        }else{
+            for (Node temp = this.head; temp != null; temp = temp.next) {
+                if (temp.data.equals(data)) {
+                    unLink(temp);
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    @Override
+    public Object set(int index, Object newData) {
+        if(!isLinkIndex(index)){
+            return null;
+        }
+        Node node = node(index);
+        Object element = node.data;
+        node.data = newData;
+        return element;
+    }
+
+    @Override
+    public Object get(int index) {
+        if(!isLinkIndex(index)){
+            return null;
+        }
+        return node(index).data;
+    }
+
+    @Override
+    public void clear() {
+        Node temp;
+        for(temp = this.head; temp != null;){
+            temp.data = null;
+            Node node = temp.next;
+            temp.prev = null;
+            temp.next = null;
+            temp = null;
+            temp = node;
+        }
+        head = null;
+    }
+
+    @Override
+    public Object[] toArray() {
+        Object[] arr = new Object[size];
+        Node temp = head;
+        for (int i = 0; i < size; i++) {
+            arr[i] = temp.data;
+            temp = temp.next;
+        }
+        return arr;
+    }
+
+    @Override
+    public int size() {
+        return this.size;
+    }
+
+    @Override
+    public void printLink() {
+        Node temp;
+        for (temp = head; temp != null; temp = temp.next) {
+            System.out.println(temp.data);
+        }
+    }
+
+    /**
+     * 根据索引取得具体结点
+     * @param index
+     * @return
+     */
+    private Node node(int index) {
+        if (index <= (size >> 1)) {
+            Node temp = head;
+            for (int i = 0; i < index; i++) {
+                temp = temp.next;
+            }
+            return temp;
+        }
+        if (index > (size >> 1)) {
+            Node temp = last;
+            for (int i = size - 1; i > index; i--) {
+                temp = temp.prev;
+            }
+            return temp;
+        }
+        return null;
+    }
+
+    private boolean isLinkIndex(int index){
+        return index>=0 && index <size;
+    }
+
+    private Object unLink(Node x){
+        Object elementData = x.data;
+        Node prev = x.prev;
+        Node next = x.next;
+        if(prev == null){
+            this.head = next;
+        }else{
+            prev.next = next;
+            x.prev = null;
+        }
+        if(next == null){
+            this.last = prev;
+        }else{
+           prev.next = next;
+           x.next = null;
+        }
+        x.data = null;
+        this.size--;
+        return elementData;
+    }
+
 }
-public class Test{
-    public static void main(String[] args){
-        
+
+
+
+public class Test {
+    public static void main(String[] args) {
+        LinkListImpl link = new LinkListImpl();
+        link.add("火车头");
+        link.add("第一节车厢");
+        link.clear();
+        link.printLink();
+
     }
 }
+
