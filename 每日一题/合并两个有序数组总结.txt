@@ -1,0 +1,392 @@
+package www.jin.java11_11;
+
+/**
+ * 特殊情况
+ * 1、输入的数组 nums2 为空（第五次）
+ * 2、当将数组nums2的最后一个数插入数组nusm1中后数组nums2的下标在再一次的循环中越界（第六次）
+ * 将数组nums2的最后一个数插入数组nusm1中后,循环为结束
+ * [2,0] 2
+ * [1] 1
+ * 3、
+ */
+/**
+ * 第一次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 6
+ * 	at Solution.merge(Solution.java:7)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [-1,-1,0,0,0,0]
+ * 4
+ * [-1,0]
+ * 2
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = 0,j = 0;
+ *         int k = 0;
+ *         int num = 0;
+ *         while(i<n){
+ *             if(nums2[i] < nums1[j]){
+ *                 for(k = j+m;k>j;k--){
+ *                     nums1[k] = nums1[k-1];
+ *                 }
+ *                 nums1[j] = nums2[i];
+ *                 j=j+2;
+ *                 i++;
+ *                 m--;
+ *             }else if(nums2[i] == nums1[j]){
+ *                 j++;
+ *                 m--;
+ *             }else{
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }else {
+ *                     j++;
+ *                     m--;
+ *                 }
+ *             }
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 第二次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 7
+ * 	at Solution.merge(Solution.java:7)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [-1,3,0,0,0,0,0]
+ * 2
+ * [0,0,1,2,3]
+ * 5
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = 0,j = 0;
+ *         int k = 0;
+ *         int num = 0;
+ *         while(i<n){
+ *             if(nums2[i] < nums1[j]){
+ *                 for(k = j+m;k>j;k--){
+ *                     nums1[k] = nums1[k-1];
+ *                 }
+ *                 nums1[j] = nums2[i];
+ *                 j=j+2;
+ *                 i++;
+ *                 m--;
+ *             }else if(nums2[i] == nums1[j]){
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }
+ *                 j++;
+ *                 m--;
+ *             }else{
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }else {
+ *                     j++;
+ *                     m--;
+ *                 }
+ *             }
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 第三次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 7
+ * 	at Solution.merge(Solution.java:7)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [-1,3,0,0,0,0,0]
+ * 2
+ * [0,0,1,2,3]
+ * 5
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = 0,j = 0;
+ *         int k = 0;
+ *         int num = 0;
+ *         while(i<n){
+ *             if(nums2[i] < nums1[j]){
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }
+ *                 for(k = j+m;k>j;k--){
+ *                     nums1[k] = nums1[k-1];
+ *                 }
+ *                 nums1[j] = nums2[i];
+ *                 j=j+2;
+ *                 i++;
+ *                 m--;
+ *             }else if(nums2[i] == nums1[j]){
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }
+ *                 j++;
+ *                 m--;
+ *             }else{
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }else {
+ *                     j++;
+ *                     m--;
+ *                 }
+ *             }
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 第四次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 7
+ * 	at Solution.merge(Solution.java:7)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [-1,3,0,0,0,0,0]
+ * 2
+ * [0,0,1,2,3]
+ * 5
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = 0,j = 0;
+ *         int k = 0;
+ *         int num = 0;
+ *         while(i<n){
+ *             if(nums2[i] < nums1[j]){
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }
+ *                 for(k = j+m;k>j;k--){
+ *                     nums1[k] = nums1[k-1];
+ *                 }
+ *                 nums1[j] = nums2[i];
+ *                 j=j+2;
+ *                 i++;
+ *                 m--;
+ *             }else if(nums2[i] == nums1[j]){
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }
+ *                 j++;
+ *                 m--;
+ *             }else{
+ *                 if(m == 0){
+ *                     nums1[j] = nums2[i];
+ *                     i++;
+ *                     j++;
+ *                 }else {
+ *                     j++;
+ *                     m--;
+ *                 }
+ *             }
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 第五次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 0
+ * 	at Solution.merge(Solution.java:6)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [1]
+ * 1
+ * []
+ * 0
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = 0, j = 0, k = 0;
+ *         int x = 0;
+ *         while (j < m+x ) {
+ *             if (nums1[j] < nums2[i]) {
+ *                 j++;
+ *             } else if (nums1[j] == nums2[i]) {
+ *                 j++;
+ *             } else {
+ *                 for (k = m + i; k > j; k--) {
+ *                     nums1[k] = nums1[k - 1];
+ *                 }
+ *                 nums1[j]=nums2[i];
+ *                 x++;
+ *                 i++;
+ *                 j++;
+ *             }
+ *         }
+ *         while (i < n) {
+ *             nums1[j] = nums2[i];
+ *             j++;
+ *             i++;
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 第六次提交
+ * 执行出错信息：
+ * Exception in thread "main" java.lang.ArrayIndexOutOfBoundsException: 1
+ * 	at Solution.merge(Solution.java:7)
+ * 	at __DriverSolution__.__helper__(__Driver__.java:10)
+ * 	at __Driver__.main(__Driver__.java:60)
+ * 最后执行的输入：
+ * [2,0]
+ * 1
+ * [1]
+ * 1
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         if(0 == n)return;
+ *         int i = 0, j = 0, k = 0;
+ *         int x = 0;
+ *         while (j < m+x ) {
+ *             if (nums1[j] < nums2[i]) {
+ *                 j++;
+ *             } else if (nums1[j] == nums2[i]) {
+ *                 j++;
+ *             } else {
+ *                 for (k = m + i; k > j; k--) {
+ *                     nums1[k] = nums1[k - 1];
+ *                 }
+ *                 nums1[j]=nums2[i];
+ *                 x++;
+ *                 i++;
+ *                 j++;
+ *             }
+ *         }
+ *         while (i < n) {
+ *             nums1[j] = nums2[i];
+ *             j++;
+ *             i++;
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 用时4ms的自己代码
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         if(0 == n)return;
+ *         int i = 0, j = 0, k = 0;
+ *         int x = 0;
+ *         while (j < m+x && i<n) {
+ *             if (nums1[j] < nums2[i]) {
+ *                 j++;
+ *             } else if (nums1[j] == nums2[i]) {
+ *                 j++;
+ *             } else {
+ *                 for (k = m + i; k > j; k--) {
+ *                     nums1[k] = nums1[k - 1];
+ *                 }
+ *                 nums1[j]=nums2[i];
+ *                 x++;
+ *                 i++;
+ *                 j++;
+ *             }
+ *         }
+ *         while (i < n) {
+ *             nums1[j] = nums2[i];
+ *             j++;
+ *             i++;
+ *         }
+ *
+ *     }
+ * }
+ */
+
+/**
+ * 用时3ms的范例
+ * class Solution {
+ *     public void merge(int[] nums1, int m, int[] nums2, int n) {
+ *         int i = m - 1;
+ *         int j = n - 1;
+ *         int k = m + n - 1;
+ *         while(j >= 0){
+ *             if(i >= 0 && nums1[i] > nums2[j]){
+ *                 nums1[k--] = nums1[i--];
+ *             }else{
+ *                 nums1[k--] = nums2[j--];
+ *             }
+ *         }
+ *     }
+ * }
+ */
+//用时5ms范例
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int i = m-1;
+        int j= n-1;
+
+        int x = nums1.length -1;
+        while(i>=0 && j>=0&& x >=0) {
+            if(nums1[i]> nums2[j]) {
+                nums1[x] = nums1[i];
+                i--;
+                x--;
+            } else if(nums1[i] < nums2[j]) {
+                nums1[x] = nums2[j];
+                j--;
+                x--;
+            } else {
+                nums1[x--] = nums1[i--];
+                nums1[x--] = nums2[j--];
+            }
+        }
+        while(j >= 0) {
+            nums1[x] = nums2[j];
+            j--;
+            x--;
+        }
+    }
+
+}
+public class Test3 {
+    public static void main(String[] args) {
+        int nums1[] = new int[]{-1,3,0,0,0,0,0};
+        int nums2[] = new int[]{0,0,1,2,3};
+        Solution sou = new Solution();
+        sou.merge(nums1,2,nums2,5);
+        print(nums1);
+    }
+
+    public static void print(int[] nums){
+        for(int i = 0;i < nums.length;i++){
+            System.out.println(nums[i]);
+        }
+    }
+}
