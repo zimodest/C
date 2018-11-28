@@ -43,6 +43,6 @@ public class FanShe_PTfnagfa  {
         //通过invoke进行调用
         method.invoke(per,"蛋哥");
         System.out.println(per);
-        
+
     }
 }
