@@ -1,5 +1,7 @@
 package www.NiuKe.TI_11_23;
 
+import java.util.concurrent.ThreadPoolExecutor;
+
 public class ForTest {
     static boolean foo(char c){
         System.out.print(c);
@@ -10,6 +12,8 @@ public class ForTest {
         for(foo('A'); foo('B') && i<2; foo('C')){
             foo('D');
             i++;
+
+
         }
     }
 }
